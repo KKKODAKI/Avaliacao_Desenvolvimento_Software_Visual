@@ -9,6 +9,7 @@ var sequelize = require('./models').sequelize;
 
 var indexRouter = require('./routes/index'); // Para a rota principal do app
 var usersRouter = require('./routes/users'); // Para a rota users ./routes/users.js
+var productsRouter = require('./routes/products');
 
 var app = express(); // Ativa a API com o express
 
@@ -20,10 +21,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter); // Cria a rota app/
 app.use('/users', usersRouter); // Cria a rota app/users
+app.use('/products', productsRouter); // Cria a rota app/products
+
 
 // Sincronizando o Sequelize (em dev)
 if (process.env.NODE_ENV !== 'production') {
-    sequelize.sync({ alter: true }) // use 'force: true' para recriar as tabelas a cada inicialização (útil em dev)
+    sequelize.sync({ alter: true }) // Use 'force: true' para recriar as tabelas a cada inicialização (somente para desenvolvimento)
         .then(() => {
             console.log('Banco de dados sincronizado');
         })
@@ -33,7 +36,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Inicar o servidos com o app.js na porta 8080
-var port = 8080;
+var port = 3000;
 app.listen(port,()=>{
     console.log(`Aplicação rodando na porta ${port}`)
 });
