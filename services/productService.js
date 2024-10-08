@@ -3,6 +3,7 @@ class ProductService {
         this.Product = ProductModel;
     }
 
+    // Método para criar um novo produto
     async create(nome, descricao, preco, estoque) {
         try {
             const newProduct = await this.Product.create({
@@ -17,6 +18,7 @@ class ProductService {
         }
     }
 
+    // Método para retornar todos os produtos
     async findAll() {
         try {
             const products = await this.Product.findAll();
@@ -26,6 +28,7 @@ class ProductService {
         }
     }
 
+    // Método para retornar um produto pelo id
     async findById(id) {
         try {
             const product = await this.Product.findByPk(id);
@@ -35,19 +38,23 @@ class ProductService {
         }
     }
 
-    async update(id, updatedFields) {
+    // Método para atualizar um produto pelo id
+    async updateProduct(id, updatedData) {
         try {
             const product = await this.Product.findByPk(id);
-            if (product) {
-                await product.update(updatedFields);
-                return product;
+            if (!product) {
+                throw new Error('Produto não encontrado');
             }
-            return null;
+
+            // Atualizando os dados do produto
+            const updatedProduct = await product.update(updatedData);
+            return updatedProduct;
         } catch (error) {
             throw error;
         }
     }
 
+    // Método para deletar um produto pelo id
     async delete(id) {
         try {
             const product = await this.Product.findByPk(id);

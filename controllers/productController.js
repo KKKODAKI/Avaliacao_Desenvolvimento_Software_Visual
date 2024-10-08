@@ -4,6 +4,7 @@ class ProductController {
         this.productService = ProductService;
     }
 
+    // Método para adicionar um produto
     async createProduct(req, res) {
         try {
             const { nome, descricao, preco, estoque } = req.body;
@@ -14,6 +15,7 @@ class ProductController {
         }
     }
 
+    // Método para listar todos os produtos
     async findAllProducts(req, res) {
         try {
             const products = await this.productService.findAll();
@@ -23,23 +25,32 @@ class ProductController {
         }
     }
 
+    // Método para atualizar um produto pelo id
     async updateProduct(req, res) {
+        const { id, nome, descricao, preco, estoque } = req.body;
+
         try {
-            const { id } = req.params;
-            const updatedProduct = await this.productService.update(id, req.body);
-            if (updatedProduct) {
-                res.status(200).json(updatedProduct);
-            } else {
-                res.status(404).json({ error: 'Produto não encontrado.' });
+            const updatedProduct = await this.productService.updateProduct(id, {
+                nome,
+                descricao,
+                preco,
+                estoque,
+            });
+
+            if (!updatedProduct) {
+                return res.status(404).json({ error: 'Produto não encontrado.' });
             }
+
+            res.status(200).json(updatedProduct);
         } catch (error) {
-            res.status(500).json({ error: 'Erro ao atualizar o produto.' });
+            res.status(500).json({ error: error.message });
         }
     }
 
+    // Método para deleta um produto pelo id
     async deleteProduct(req, res) {
         try {
-            const { id } = req.params;
+            const { id } = req.body;
             const deletedProduct = await this.productService.delete(id);
             if (deletedProduct) {
                 res.status(200).json({ message: 'Produto deletado com sucesso.' });

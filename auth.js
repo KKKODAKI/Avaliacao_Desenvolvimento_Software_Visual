@@ -21,7 +21,7 @@ async function verifyToken(req, res, next){
     // Extrair o token jwt
     const token = authheader.split(' ')[1]; // Separar pelo espaço para ignorar a palavra Bearer
     if (!token){
-        return res.status(401).json({messege:'Token não informado'});
+        return res.status(401).json({messege:'Token não informado 2'});
     }
     // Verificar a validade
     jwt.verify(token, secret,(err, decoded)=>{

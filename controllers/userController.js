@@ -27,6 +27,7 @@ class UserController{
             res.status(500).json({error: 'Ocorreu um erro ao localizar todos os usuários.'})
         }
     }
+    
     async findUserById(req,res){
         const {id} = req.query;
         try{
