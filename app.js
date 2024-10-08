@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index'); // Para a rota principal do app
 var usersRouter = require('./routes/users'); // Para a rota users ./routes/users.js
 var productsRouter = require('./routes/products'); // Para a rota users ./routes/products.js
 var cartRouter = require('./routes/carts'); // Para a rota users ./routes/cart.js
+const paymentRoutes = require('./routes/payment'); // Para a rota users ./routes/payment.js
 
 var app = express(); // Ativa a API com o express
 
@@ -24,6 +25,7 @@ app.use('/', indexRouter); // Cria a rota app/
 app.use('/users', usersRouter); // Cria a rota app/users
 app.use('/products', productsRouter); // Cria a rota app/products
 app.use('/cart', cartRouter); // Cria a rota app/cart
+app.use('/payment', paymentRoutes); // Cria a rota app/payment
 
 
 // Sincronizando o Sequelize (em dev)
