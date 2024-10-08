@@ -19,7 +19,7 @@ router.post('/addProduct', async (req, res) => {
 });
 
 // Rota para remover um produto da cesta pelo id
-router.delete('/removeById', async (req, res) => {
+router.delete('/removeProduct', async (req, res) => {
     cartController.removeProduct(req, res);
 });
 

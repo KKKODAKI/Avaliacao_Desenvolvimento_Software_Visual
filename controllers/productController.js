@@ -50,7 +50,7 @@ class ProductController {
     // Método para deleta um produto pelo id
     async deleteProduct(req, res) {
         try {
-            const { id } = req.body;
+            const { id } = req.query;
             const deletedProduct = await this.productService.delete(id);
             if (deletedProduct) {
                 res.status(200).json({ message: 'Produto deletado com sucesso.' });

@@ -17,24 +17,27 @@ class CartController {
 
     // Método para remove o produto da cesta pelo id
     async removeProduct(req, res) {
-        const { userId } = req.body;
-        const { id: productId } = req.body;
+        const { userId, productId } = req.query; // Capturando os parâmetros da query string
+        console.log("User ID recebido:", userId, "Product ID recebido:", productId); // Log para verificação
         try {
             const cart = await this.cartService.removeProduct(userId, productId);
             res.status(200).json(cart);
         } catch (error) {
-            res.status(500).json({ error: 'Cart não encontrado' });
+            res.status(500).json({ error: error.message });
         }
     }
+    
 
     // Método para listar os produtos da cesta
     async getCart(req, res) {
-        const { userId } = req.body;
+        // Captura o userId da query string ou do corpo, conforme necessário
+        const userId = req.query.userId
+        console.log("User ID recebido:", userId); // Log para verificação
         try {
             const cart = await this.cartService.getCart(userId);
             res.status(200).json(cart);
         } catch (error) {
-            res.status(500).json({ error: 'Cart não encontrado' });
+            res.status(500).json({ error: error.message });
         }
     }
 }
